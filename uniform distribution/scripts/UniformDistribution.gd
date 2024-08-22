@@ -19,10 +19,11 @@ func refresh():
 	var children = objects_manager.get_children()
 	for c in children:
 		objects_manager.remove_child(c)
-	var coordinates = Distribution.by_vector2(start_marker.global_position, end_marker.global_position, 32, 32)
+	#var distribution_result = DistributionManager.new(start, end).ByMethod(LineStrategy.ByPaddings)
+	var coordinates = DistributionManager.new(start_marker.global_position.x, end_marker.global_position.x, DistributorByLineStrategy.new(), DistributionEnums.DistributionType.BY_FILL_TO_MAX, obj_size.x).get_result()
 	for i in coordinates.values.size():
 		var new_object = TEST_OBJECT.instantiate()
-		new_object.global_position = coordinates.values[i] 
+		new_object.global_position = Vector2(coordinates.values[i], start_marker.global_position.y) 
 		objects_manager.add_child(new_object)
 
 
